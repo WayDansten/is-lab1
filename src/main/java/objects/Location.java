@@ -1,5 +1,11 @@
 package objects;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
@@ -8,17 +14,21 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 @Entity
-@Table(name="locations")
+@Table(name = "locations")
 public class Location {
-    @Column(name="name", nullable=false, unique=true, length=246)
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private int id;
+
+    @Column(name = "location_name", nullable = false, unique = true, length = 246)
     private String name;
 
-    @Column(name="x", nullable=false)
+    @Column(name = "x", nullable = false)
     private Long x;
 
-    @Column(name="y", nullable=false)
+    @Column(name = "y", nullable = false)
     private double y;
 
-    @Column(name="z", nullable=false)
+    @Column(name = "z", nullable = false)
     private float z;
 }

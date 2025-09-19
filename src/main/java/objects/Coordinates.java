@@ -16,16 +16,16 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 @Entity
-@Table(name="coordinates")
+@Table(name = "coordinates")
 public class Coordinates {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name="x", nullable=false)
+    @Column(name = "x", nullable = false)
     private float x;
 
-    @Column(name="y", nullable=false)
-    @Min(value=-566)
+    @Column(name = "y", nullable = false)
+    @Min(value = -566)
     private double y;
 }

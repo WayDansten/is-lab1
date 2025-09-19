@@ -1,8 +1,15 @@
 package objects.types;
 
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+
+@Getter
+@AllArgsConstructor
 public enum Color {
-    BLACK,
-    BLUE,
-    YELLOW,
-    BROWN;
+    BLACK("Черный"),
+    BLUE("Синий"),
+    YELLOW("Желтый"),
+    BROWN("Коричневый");
+
+    private String name;
 }

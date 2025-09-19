@@ -13,6 +13,10 @@ import javax.persistence.Id;
 import javax.persistence.PrePersist;
 import javax.persistence.Table;
 
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.validation.constraints.DecimalMin;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotEmpty;
@@ -24,41 +28,45 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 @Entity
-@Table(name="lab_works")
+@Table(name = "labworks")
 public class LabWork {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Min(value=1)
+    @Min(value = 1)
     private int id;
 
-    @Column(name="name", nullable=false)
+    @Column(name = "labwork_name", nullable = false)
     @NotEmpty
     private String name;
 
-    @Column(name="coordinates", nullable=false)
+    @ManyToOne
+    @JoinColumn(name = "coordinates_id")
     private Coordinates coordinates;
 
-    @Column(name="creation_date", nullable=false)
+    @Column(name = "creation_date", nullable = false)
     private java.time.LocalDateTime creationDate;
 
-    @Column(name="description", nullable=true)
+    @Column(name = "description", nullable = true)
     private String description;
 
-    @Column(name="difficulty", nullable=true)
+    @Enumerated(EnumType.STRING)
+    @Column(name = "difficulty", nullable = true)
     private Difficulty difficulty;
 
-    @Column(name="discipline", nullable=true)
+    @ManyToOne
+    @JoinColumn(name = "discipline_id")
     private Discipline discipline;
 
-    @Column(name="minimal_point", nullable=true)
-    @DecimalMin(value=0, inclusive=false)
+    @Column(name = "minimal_point", nullable = true)
+    @DecimalMin(value = 0, inclusive = false)
     private Double minimalPoint;
 
-    @Column(name="average_point", nullable=false)
-    @DecimalMin(value=0, inclusive=false)
+    @Column(name = "average_point", nullable = false)
+    @DecimalMin(value = 0, inclusive = false)
     private float averagePoint;
 
-    @Column(name="author", nullable=false)
+    @ManyToOne
+    @JoinColumn(name = "author_id")
     private Person author;
 
     @PrePersist

@@ -5,29 +5,51 @@ import objects.types.Country;
 import objects.Location;
 import java.time.LocalDateTime;
 
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.validation.constraints.NotEmpty;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 
 @Getter
 @Setter
+@AllArgsConstructor
+@Entity
+@Table(name = "people")
 public class Person {
-    @Column(name="name", nullable=false, unique="true")
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private int id;
+
+    @Column(name = "person_name", nullable = false, unique = "true")
     @NotEmpty
     private String name;
 
-    @Column(name="eye_color", nullable=true)
+    @Enumerated(EnumType.STRING)
+    @Column(name = "eye_color", nullable = true)
     private Color eyeColor;
 
-    @Column(name="hair_color", nullable=false)
+    @Enumerated(EnumType.STRING)
+    @Column(name = "hair_color", nullable = false)
     private Color hairColor;
 
-    @Column(name="location", nullable=true)
+    @ManyToOne
+    @JoinColumn(name = "location_id")
     private Location location;
 
-    @Column(name="birthday", nullable=false)
+    @Column(name = "birthday", nullable = false)
     private java.time.LocalDateTime birthday;
 
-    @Column(name="nationality", nullable=false)
+    @Enumerated(EnumType.STRING)
+    @Column(name = "nationality", nullable = false)
     private Country nationality;
 }
