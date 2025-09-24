@@ -1,28 +1,29 @@
-package objects;
+package entity;
 
-import objects.types.Color;
-import objects.types.Country;
-import objects.Location;
 import java.time.LocalDateTime;
 
+import javax.persistence.Column;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import entity.Location;
+import entity.types.Color;
+import entity.types.Country;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.validation.constraints.NotEmpty;
-import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Getter
 @Setter
-@AllArgsConstructor
+@NoArgsConstructor
 @Entity
 @Table(name = "people")
 public class Person {
@@ -47,7 +48,7 @@ public class Person {
     private Location location;
 
     @Column(name = "birthday", nullable = false)
-    private java.time.LocalDateTime birthday;
+    private LocalDateTime birthday;
 
     @Enumerated(EnumType.STRING)
     @Column(name = "nationality", nullable = false)

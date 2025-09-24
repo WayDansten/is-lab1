@@ -1,4 +1,4 @@
-package objects;
+package entity;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -8,13 +8,13 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 import jakarta.validation.constraints.Min;
-import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Getter
 @Setter
-@AllArgsConstructor
+@NoArgsConstructor
 @Entity
 @Table(name = "coordinates")
 public class Coordinates {

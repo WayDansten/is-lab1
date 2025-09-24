@@ -1,5 +1,6 @@
-package dal;
+package dao;
 
+import entity.LabWork;
 import jakarta.persistence.EntityTransaction;
 import jakarta.persistence.criteria.CriteriaBuilder;
 import jakarta.persistence.criteria.CriteriaDelete;
@@ -7,7 +8,6 @@ import jakarta.persistence.criteria.CriteriaQuery;
 import jakarta.persistence.criteria.Join;
 import jakarta.persistence.criteria.Root;
 import lombok.RequiredArgsConstructor;
-import objects.LabWork;
 
 @RequiredArgsConstructor
 public class LabWorkDAO extends AbstractDAO<LabWork> {

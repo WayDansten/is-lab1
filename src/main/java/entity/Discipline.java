@@ -1,5 +1,6 @@
-package objects;
+package entity;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -8,13 +9,13 @@ import javax.persistence.Table;
 
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotEmpty;
-import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Getter
 @Setter
-@AllArgsConstructor
+@NoArgsConstructor
 @Entity
 @Table(name = "disciplines")
 public class Discipline {
@@ -24,7 +25,7 @@ public class Discipline {
 
     @Column(name = "discipline_name", nullable = false, unique = true)
     @NotEmpty
-    private String name; // Поле не может быть null, Строка не может быть пустой
+    private String name;
 
     @Column(name = "practiceHours")
     @Min(value = 1)

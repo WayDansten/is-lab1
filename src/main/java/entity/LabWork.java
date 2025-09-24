@@ -1,11 +1,8 @@
-package objects;
+package entity;
 
-import objects.Coordinates;
-import objects.Discipline;
-import objects.Person;
-import objects.types.Difficulty;
 import java.time.LocalDateTime;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -13,6 +10,10 @@ import javax.persistence.Id;
 import javax.persistence.PrePersist;
 import javax.persistence.Table;
 
+import entity.Coordinates;
+import entity.Discipline;
+import entity.Person;
+import entity.types.Difficulty;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
 import jakarta.persistence.JoinColumn;
@@ -20,13 +21,13 @@ import jakarta.persistence.ManyToOne;
 import jakarta.validation.constraints.DecimalMin;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotEmpty;
-import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Getter
 @Setter
-@AllArgsConstructor
+@NoArgsConstructor
 @Entity
 @Table(name = "labworks")
 public class LabWork {
@@ -44,7 +45,7 @@ public class LabWork {
     private Coordinates coordinates;
 
     @Column(name = "creation_date", nullable = false)
-    private java.time.LocalDateTime creationDate;
+    private LocalDateTime creationDate;
 
     @Column(name = "description", nullable = true)
     private String description;
