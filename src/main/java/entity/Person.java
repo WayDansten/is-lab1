@@ -15,7 +15,6 @@ import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
-import jakarta.validation.constraints.NotEmpty;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -31,7 +30,6 @@ public class Person {
     private int id;
 
     @Column(name = "person_name", nullable = false, unique = true)
-    @NotEmpty
     private String name;
 
     @Enumerated(EnumType.STRING)

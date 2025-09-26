@@ -7,8 +7,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
-import jakarta.validation.constraints.Min;
-import jakarta.validation.constraints.NotEmpty;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -24,10 +22,8 @@ public class Discipline {
     private int id;
 
     @Column(name = "discipline_name", nullable = false, unique = true)
-    @NotEmpty
     private String name;
 
-    @Column(name = "practiceHours")
-    @Min(value = 1)
+    @Column(name = "practiceHours", nullable = false)
     private int practiceHours;
 }

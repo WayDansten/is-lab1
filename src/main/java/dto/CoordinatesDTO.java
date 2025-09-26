@@ -1,5 +1,7 @@
 package dto;
 
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -11,6 +13,11 @@ import lombok.Setter;
 @NoArgsConstructor
 public class CoordinatesDTO {
     private Integer id;
+    
+    @NotNull
     private Float x;
+
+    @NotNull
+    @Min(value = -566)
     private Double y;
 }

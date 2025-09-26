@@ -7,7 +7,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
-import jakarta.validation.constraints.Min;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -26,6 +25,5 @@ public class Coordinates {
     private float x;
 
     @Column(name = "y", nullable = false)
-    @Min(value = -566)
     private double y;
 }
