@@ -8,7 +8,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
-import entity.Location;
 import entity.types.Color;
 import entity.types.Country;
 import jakarta.persistence.Entity;
@@ -31,7 +30,7 @@ public class Person {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    @Column(name = "person_name", nullable = false, unique = "true")
+    @Column(name = "person_name", nullable = false, unique = true)
     @NotEmpty
     private String name;
 

@@ -10,9 +10,6 @@ import javax.persistence.Id;
 import javax.persistence.PrePersist;
 import javax.persistence.Table;
 
-import entity.Coordinates;
-import entity.Discipline;
-import entity.Person;
 import entity.types.Difficulty;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
@@ -59,11 +56,11 @@ public class LabWork {
     private Discipline discipline;
 
     @Column(name = "minimal_point", nullable = true)
-    @DecimalMin(value = 0, inclusive = false)
+    @DecimalMin(value = "0", inclusive = false)
     private Double minimalPoint;
 
     @Column(name = "average_point", nullable = false)
-    @DecimalMin(value = 0, inclusive = false)
+    @DecimalMin(value = "0", inclusive = false)
     private float averagePoint;
 
     @ManyToOne

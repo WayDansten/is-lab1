@@ -11,6 +11,6 @@ import lombok.Setter;
 @NoArgsConstructor
 public class CoordinatesDTO {
     private Integer id;
-    private Double x;
-    private double y;
+    private Float x;
+    private Double y;
 }

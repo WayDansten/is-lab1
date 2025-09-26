@@ -2,6 +2,7 @@ package dto;
 
 import java.time.LocalDateTime;
 
+import entity.types.Difficulty;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -18,6 +19,7 @@ public class LabWorkDTO {
     private LocalDateTime creationDate;
     private String description;
     private Difficulty difficulty;
+    private DisciplineDTO discipline;
     private Double minimalPoint;
     private Float averagePoint;
     private PersonDTO author;

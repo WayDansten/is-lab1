@@ -20,7 +20,7 @@ import lombok.Setter;
 public class Coordinates {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private int id;
 
     @Column(name = "x", nullable = false)
     private float x;

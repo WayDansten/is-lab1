@@ -13,7 +13,7 @@ public class CoordinatesMapper {
     public Coordinates toEntity(CoordinatesDTO dto) {
         Coordinates entity = new Coordinates();
         entity.setX(dto.getX());
-        entity.getY(dto.getY());
+        entity.setY(dto.getY());
         return entity;
     }
 }

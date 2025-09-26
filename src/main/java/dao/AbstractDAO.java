@@ -1,5 +1,7 @@
 package dao;
 
+import java.util.List;
+
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityTransaction;
 import jakarta.persistence.criteria.CriteriaBuilder;
@@ -17,14 +19,10 @@ public abstract class AbstractDAO<T> {
         return entity;
     }
 
-    public T findByKey(K key) {
-        return em.find(entityClass, key);
-    }
-
     public List<T> findAll() {
         CriteriaBuilder cb = em.getCriteriaBuilder();
-        CriteriaQuery<T> cq = cb.createQuery();
-        Root<T> root = cq.from(entityClass)
+        CriteriaQuery<T> cq = cb.createQuery(entityClass);
+        Root<T> root = cq.from(entityClass);
 
         cq.select(root);
         return em.createQuery(cq).getResultList();
@@ -41,6 +39,7 @@ public abstract class AbstractDAO<T> {
             if (transaction.isActive()) {
                 transaction.rollback();
             }
+            throw new RuntimeException();
         }
     }
 

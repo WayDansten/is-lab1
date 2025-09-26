@@ -9,7 +9,7 @@ public enum Country {
     UNITED_KINGDOM("Великобритания"),
     USA("США"),
     FRANCE("Франция"),
-    SOUTH_KOREA("Южная Корея")
+    SOUTH_KOREA("Южная Корея"),
     NORTH_KOREA("Северная Корея");
 
     private String title;

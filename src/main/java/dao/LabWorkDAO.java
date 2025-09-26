@@ -1,19 +1,25 @@
 package dao;
 
+import java.util.List;
+
 import entity.LabWork;
+import entity.Person;
+import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityTransaction;
 import jakarta.persistence.criteria.CriteriaBuilder;
 import jakarta.persistence.criteria.CriteriaDelete;
 import jakarta.persistence.criteria.CriteriaQuery;
 import jakarta.persistence.criteria.Join;
 import jakarta.persistence.criteria.Root;
-import lombok.RequiredArgsConstructor;
 
-@RequiredArgsConstructor
 public class LabWorkDAO extends AbstractDAO<LabWork> {
+    public LabWorkDAO(EntityManager em) {
+        super(em, LabWork.class);
+    }
+
     public List<LabWork> findGreaterThanAveragePoint(float averagePoint) {
         CriteriaBuilder cb = em.getCriteriaBuilder();
-        CriteriaQuery<LabWork> cq = cb.createQuery();
+        CriteriaQuery<LabWork> cq = cb.createQuery(LabWork.class);
         Root<LabWork> root = cq.from(LabWork.class);
 
         cq.where(cb.greaterThan(root.get("averagePoint"), averagePoint));
@@ -22,7 +28,7 @@ public class LabWorkDAO extends AbstractDAO<LabWork> {
 
     public List<LabWork> findDescriptionThanStartsWith(String prefix) {
         CriteriaBuilder cb = em.getCriteriaBuilder();
-        CriteriaQuery<LabWork> cq = cb.createQuery();
+        CriteriaQuery<LabWork> cq = cb.createQuery(LabWork.class);
         Root<LabWork> root = cq.from(LabWork.class);
 
         cq.where(cb.like(root.get("description"), prefix + "%"));
