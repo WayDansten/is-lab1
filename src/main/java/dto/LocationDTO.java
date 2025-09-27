@@ -1,5 +1,7 @@
 package dto;
 
+import java.io.Serializable;
+
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
@@ -11,9 +13,7 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class LocationDTO {
-    private Integer id;
-
+public class LocationDTO implements Serializable {
     @NotNull
     @Size(max = 246)
     private String name;

@@ -1,5 +1,6 @@
 package dto;
 
+import java.io.Serializable;
 import java.time.LocalDateTime;
 
 import entity.types.Color;
@@ -15,9 +16,7 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class PersonDTO {
-    private Integer id;
-
+public class PersonDTO implements Serializable {
     @NotNull
     @NotEmpty
     private String name;

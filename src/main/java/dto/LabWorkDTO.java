@@ -1,10 +1,10 @@
 package dto;
 
+import java.io.Serializable;
 import java.time.LocalDateTime;
 
 import entity.types.Difficulty;
 import jakarta.validation.constraints.DecimalMin;
-import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
@@ -16,10 +16,7 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class LabWorkDTO {
-    @Min(value = 1)
-    private Integer id;
-
+public class LabWorkDTO implements Serializable {
     @NotNull
     @NotEmpty
     private String name;

@@ -16,7 +16,7 @@ public class PersonMapper {
     }
 
     public PersonDTO toDTO(Person entity) {
-        return new PersonDTO(entity.getId(), entity.getName(), entity.getEyeColor(), entity.getHairColor(),
+        return new PersonDTO(entity.getName(), entity.getEyeColor(), entity.getHairColor(),
                 locationMapper.toDTO(entity.getLocation()), entity.getBirthday(), entity.getNationality());
     }
 

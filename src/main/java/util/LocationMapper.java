@@ -7,7 +7,7 @@ import jakarta.enterprise.context.ApplicationScoped;
 @ApplicationScoped
 public class LocationMapper {
     public LocationDTO toDTO(Location entity) {
-        return new LocationDTO(entity.getId(), entity.getName(), entity.getX(), entity.getY(), entity.getZ());
+        return new LocationDTO(entity.getName(), entity.getX(), entity.getY(), entity.getZ());
     }
 
     public Location toEntity(LocationDTO dto) {

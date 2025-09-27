@@ -7,7 +7,7 @@ import jakarta.enterprise.context.ApplicationScoped;
 @ApplicationScoped
 public class DisciplineMapper {
     public DisciplineDTO toDTO(Discipline entity) {
-        return new DisciplineDTO(entity.getId(), entity.getName(), entity.getPracticeHours());
+        return new DisciplineDTO(entity.getName(), entity.getPracticeHours());
     }
 
     public Discipline toEntity(DisciplineDTO dto) {

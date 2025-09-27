@@ -7,7 +7,7 @@ import jakarta.enterprise.context.ApplicationScoped;
 @ApplicationScoped
 public class CoordinatesMapper {
     public CoordinatesDTO toDTO(Coordinates entity) {
-        return new CoordinatesDTO(entity.getId(), entity.getX(), entity.getY());
+        return new CoordinatesDTO(entity.getX(), entity.getY());
     }
 
     public Coordinates toEntity(CoordinatesDTO dto) {

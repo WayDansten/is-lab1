@@ -16,6 +16,7 @@ import jakarta.persistence.Enumerated;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.validation.constraints.DecimalMin;
+import jakarta.validation.constraints.Min;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -28,6 +29,7 @@ import lombok.Setter;
 public class LabWork {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Min(value = 1)
     private int id;
 
     @Column(name = "labwork_name", nullable = false)

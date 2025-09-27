@@ -5,7 +5,6 @@ import java.util.List;
 import entity.LabWork;
 import entity.Person;
 import jakarta.persistence.EntityManager;
-import jakarta.persistence.EntityTransaction;
 import jakarta.persistence.criteria.CriteriaBuilder;
 import jakarta.persistence.criteria.CriteriaDelete;
 import jakarta.persistence.criteria.CriteriaQuery;
@@ -15,6 +14,11 @@ import jakarta.persistence.criteria.Root;
 public class LabWorkDAO extends AbstractDAO<LabWork> {
     public LabWorkDAO(EntityManager em) {
         super(em, LabWork.class);
+    }
+
+    public void deleteByID(int id) {
+        LabWork entity = em.find(LabWork.class, id);
+        this.delete(entity);
     }
 
     public List<LabWork> findGreaterThanAveragePoint(float averagePoint) {
@@ -36,23 +40,12 @@ public class LabWorkDAO extends AbstractDAO<LabWork> {
     }
 
     public void deleteByAuthor(String authorName) {
-        EntityTransaction transaction = em.getTransaction();
-        try {
-            transaction.begin();
-
-            CriteriaBuilder cb = em.getCriteriaBuilder();
-            CriteriaDelete<LabWork> cd = cb.createCriteriaDelete(LabWork.class);
-            Root<LabWork> root = cd.from(LabWork.class);
-            Join<LabWork, Person> join = root.join("author");
-            
-            cd.where(cb.equal(join.get("name"), authorName));
-            em.createQuery(cd).executeUpdate();
-
-            transaction.commit();
-        } catch (Exception e) {
-            if (transaction.isActive()) {
-                transaction.rollback();
-            }
-        }
+        CriteriaBuilder cb = em.getCriteriaBuilder();
+        CriteriaDelete<LabWork> cd = cb.createCriteriaDelete(LabWork.class);
+        Root<LabWork> root = cd.from(LabWork.class);
+        Join<LabWork, Person> join = root.join("author");
+        
+        cd.where(cb.equal(join.get("name"), authorName));
+        em.createQuery(cd).executeUpdate();
     }
 }

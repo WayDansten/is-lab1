@@ -20,7 +20,7 @@ public class LabWorkMapper {
     }
 
     public LabWorkDTO toDTO(LabWork entity) {
-        return new LabWorkDTO(entity.getId(), entity.getName(), coordinatesMapper.toDTO(entity.getCoordinates()),
+        return new LabWorkDTO(entity.getName(), coordinatesMapper.toDTO(entity.getCoordinates()),
                 entity.getCreationDate(), entity.getDescription(), entity.getDifficulty(),
                 disciplineMapper.toDTO(entity.getDiscipline()), entity.getMinimalPoint(), entity.getAveragePoint(),
                 personMapper.toDTO(entity.getAuthor()));
