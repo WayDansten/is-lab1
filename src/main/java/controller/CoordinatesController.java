@@ -3,33 +3,33 @@ package controller;
 import java.util.List;
 
 import jakarta.ws.rs.*;
-import jakarta.ws.rs.core.MediaType;
-import jakarta.ws.rs.core.Response;
 
 import dto.ErrorResponseDTO;
 import dto.IdRequestDTO;
-import dto.labwork.LabWorkRequestDTO;
-import dto.labwork.LabWorkResponseDTO;
+import dto.coordinates.CoordinatesRequestDTO;
+import dto.coordinates.CoordinatesResponseDTO;
 import jakarta.inject.Inject;
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.persistence.PersistenceException;
 import jakarta.validation.ConstraintViolationException;
-import service.LabWorkService;
+import jakarta.ws.rs.core.MediaType;
+import jakarta.ws.rs.core.Response;
+import service.CoordinatesService;
 import util.MessageConstants;
 
-@Path("/api/labwork")
+@Path("/api/coordinates")
 @Consumes(MediaType.APPLICATION_JSON)
 @Produces(MediaType.APPLICATION_JSON)
-public class LabWorkController {
-    private LabWorkService service;
+public class CoordinatesController {
+    private CoordinatesService service;
 
     @Inject
-    public LabWorkController(LabWorkService service) {
+    public CoordinatesController(CoordinatesService service) {
         this.service = service;
     }
 
     @POST
-    public Response add(LabWorkRequestDTO dto) {
+    public Response add(CoordinatesRequestDTO dto) {
         try {
             service.create(dto);
             return Response.status(Response.Status.CREATED).entity(MessageConstants.OK.getMessage()).build();
@@ -40,7 +40,7 @@ public class LabWorkController {
     }
 
     @PUT
-    public Response update(LabWorkRequestDTO dto) {
+    public Response update(CoordinatesRequestDTO dto) {
         try {
             service.update(dto);
             return Response.ok(MessageConstants.OK.getMessage()).build();
@@ -52,7 +52,7 @@ public class LabWorkController {
     }
 
     @DELETE
-    public Response delete(IdRequestDTO dto) {
+    public Response deleteByID(IdRequestDTO dto) {
         try {
             service.delete(dto);
             return Response.ok(MessageConstants.OK.getMessage()).build();
@@ -63,7 +63,7 @@ public class LabWorkController {
 
     @GET
     public Response getAll() {
-        List<LabWorkResponseDTO> labWorks = service.getAll();
-        return Response.ok(labWorks).build();
+        List<CoordinatesResponseDTO> coordinatess = service.getAll();
+        return Response.ok(coordinatess).build();
     }
 }
