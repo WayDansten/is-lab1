@@ -1,9 +1,9 @@
-package dto;
+package dto.location;
 
 import java.io.Serializable;
 
-import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -13,11 +13,19 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class CoordinatesDTO implements Serializable{
-    @NotNull
-    private Float x;
+public class LocationRequestDTO implements Serializable {
+    private Integer id;
 
     @NotNull
-    @Min(value = -566)
+    @Size(max = 246)
+    private String name;
+
+    @NotNull
+    private Long x;
+
+    @NotNull
     private Double y;
+
+    @NotNull
+    private Float z;
 }

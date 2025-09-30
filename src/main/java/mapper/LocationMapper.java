@@ -1,16 +1,17 @@
-package util;
+package mapper;
 
-import dto.LocationDTO;
+import dto.location.LocationRequestDTO;
+import dto.location.LocationResponseDTO;
 import entity.Location;
 import jakarta.enterprise.context.ApplicationScoped;
 
 @ApplicationScoped
 public class LocationMapper {
-    public LocationDTO toDTO(Location entity) {
-        return new LocationDTO(entity.getName(), entity.getX(), entity.getY(), entity.getZ());
+    public LocationResponseDTO toDTO(Location entity) {
+        return new LocationResponseDTO(entity.getId(), entity.getName(), entity.getX(), entity.getY(), entity.getZ());
     }
 
-    public Location toEntity(LocationDTO dto) {
+    public Location toEntity(LocationRequestDTO dto) {
         Location entity = new Location();
         entity.setName(dto.getName());
         entity.setX(dto.getX());

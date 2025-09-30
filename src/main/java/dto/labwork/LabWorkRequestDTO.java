@@ -1,8 +1,10 @@
-package dto;
+package dto.labwork;
 
 import java.io.Serializable;
-import java.time.LocalDateTime;
 
+import dto.coordinates.CoordinatesRequestDTO;
+import dto.discipline.DisciplineRequestDTO;
+import dto.person.PersonRequestDTO;
 import entity.types.Difficulty;
 import jakarta.validation.constraints.DecimalMin;
 import jakarta.validation.constraints.NotEmpty;
@@ -16,22 +18,19 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class LabWorkDTO implements Serializable {
+public class LabWorkRequestDTO implements Serializable {
     @NotNull
     @NotEmpty
     private String name;
 
     @NotNull
-    private CoordinatesDTO coordinates;
-
-    @NotNull
-    private LocalDateTime creationDate;
+    private CoordinatesRequestDTO coordinates;
 
     private String description;
 
     private Difficulty difficulty;
 
-    private DisciplineDTO discipline;
+    private DisciplineRequestDTO discipline;
 
     private Double minimalPoint;
 
@@ -39,5 +38,5 @@ public class LabWorkDTO implements Serializable {
     @DecimalMin(value = "0", inclusive = false)
     private Float averagePoint;
     
-    private PersonDTO author;
+    private PersonRequestDTO author;
 }

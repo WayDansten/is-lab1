@@ -1,12 +1,11 @@
-package dto;
+package dto.person;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
 
+import dto.location.LocationResponseDTO;
 import entity.types.Color;
 import entity.types.Country;
-import jakarta.validation.constraints.NotEmpty;
-import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -16,22 +15,19 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class PersonDTO implements Serializable {
-    @NotNull
-    @NotEmpty
+public class PersonResponseDTO implements Serializable {
+    private int id;
+
     private String name;
 
-    @NotNull
     private Color eyeColor;
 
-    @NotNull
     private Color hairColor;
 
-    private LocationDTO location;
+    private LocationResponseDTO location;
 
-    @NotNull
     private LocalDateTime birthday;
 
-    @NotNull
     private Country nationality;
+
 }

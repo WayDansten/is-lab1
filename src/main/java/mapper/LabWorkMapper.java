@@ -1,6 +1,7 @@
-package util;
+package mapper;
 
-import dto.LabWorkDTO;
+import dto.labwork.LabWorkRequestDTO;
+import dto.labwork.LabWorkResponseDTO;
 import entity.LabWork;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
@@ -19,18 +20,24 @@ public class LabWorkMapper {
         this.coordinatesMapper = new CoordinatesMapper();
     }
 
-    public LabWorkDTO toDTO(LabWork entity) {
-        return new LabWorkDTO(entity.getName(), coordinatesMapper.toDTO(entity.getCoordinates()),
-                entity.getCreationDate(), entity.getDescription(), entity.getDifficulty(),
-                disciplineMapper.toDTO(entity.getDiscipline()), entity.getMinimalPoint(), entity.getAveragePoint(),
+    public LabWorkResponseDTO toDTO(LabWork entity) {
+        return new LabWorkResponseDTO(
+                entity.getId(),
+                entity.getName(),
+                coordinatesMapper.toDTO(entity.getCoordinates()),
+                entity.getCreationDate(),
+                entity.getDescription(),
+                entity.getDifficulty(),
+                disciplineMapper.toDTO(entity.getDiscipline()),
+                entity.getMinimalPoint(),
+                entity.getAveragePoint(),
                 personMapper.toDTO(entity.getAuthor()));
     }
 
-    public LabWork toEntity(LabWorkDTO dto) {
+    public LabWork toEntity(LabWorkRequestDTO dto) {
         LabWork entity = new LabWork();
         entity.setName(dto.getName());
         entity.setCoordinates(coordinatesMapper.toEntity(dto.getCoordinates()));
-        entity.setCreationDate(dto.getCreationDate());
         entity.setDescription(dto.getDescription());
         entity.setDifficulty(dto.getDifficulty());
         entity.setDiscipline(disciplineMapper.toEntity(dto.getDiscipline()));

@@ -14,18 +14,19 @@ import javax.ws.rs.core.Response;
 
 import dto.ErrorResponseDTO;
 import dto.IdRequestDTO;
-import dto.LabWorkDTO;
+import dto.labwork.LabWorkRequestDTO;
+import dto.labwork.LabWorkResponseDTO;
 import jakarta.inject.Inject;
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.persistence.PersistenceException;
 import jakarta.validation.ConstraintViolationException;
-import service.ObjectService;
+import service.LabWorkService;
 
 @Path("/api/obj")
 @Consumes(MediaType.APPLICATION_JSON)
 @Produces(MediaType.APPLICATION_JSON)
-public class ObjectController {
-    private ObjectService service;
+public class LabWorkController {
+    private LabWorkService service;
 
     private static final String OK = "Request successfully fulfilled";
 
@@ -33,13 +34,13 @@ public class ObjectController {
     private static final String ERR_NOT_FOUND = "Failed to fulfill the request: entity not found.";
 
     @Inject
-    public ObjectController(ObjectService service) {
+    public LabWorkController(LabWorkService service) {
         this.service = service;
     }
 
     @POST
     @Path("/add")
-    public Response addLabwork(LabWorkDTO dto) {
+    public Response addLabwork(LabWorkRequestDTO dto) {
         try {
             service.create(dto);
             return Response.status(Response.Status.CREATED).entity(OK).build();
@@ -51,7 +52,7 @@ public class ObjectController {
 
     @PUT
     @Path("/update")
-    public Response updateLabwork(LabWorkDTO dto) {
+    public Response updateLabwork(LabWorkRequestDTO dto) {
         try {
             service.update(dto);
             return Response.ok(OK).build();
@@ -76,7 +77,7 @@ public class ObjectController {
     @GET
     @Path("/get")
     public Response getAllLabworks() {
-        List<LabWorkDTO> labWorks = service.getAll();
+        List<LabWorkResponseDTO> labWorks = service.getAll();
         return Response.ok(labWorks).build();
     }
 }

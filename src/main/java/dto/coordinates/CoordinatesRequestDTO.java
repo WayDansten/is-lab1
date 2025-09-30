@@ -1,4 +1,4 @@
-package dto;
+package dto.coordinates;
 
 import java.io.Serializable;
 
@@ -13,11 +13,13 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class DisciplineDTO implements Serializable {
-    @NotNull
-    private String name;
+public class CoordinatesRequestDTO implements Serializable{
+    private Integer id;
 
     @NotNull
-    @Min(value = 1)
-    private Integer practiceHours;
+    private Float x;
+
+    @NotNull
+    @Min(value = -566)
+    private Double y;
 }
