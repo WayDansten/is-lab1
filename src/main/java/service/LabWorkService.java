@@ -15,32 +15,33 @@ import repository.LabWorkRepository;
 @ApplicationScoped
 public class LabWorkService {
     private LabWorkMapper mapper;
-    private LabWorkRepository dao;
+    private LabWorkRepository repository;
 
     @Inject
-    public LabWorkService(LabWorkMapper mapper, LabWorkRepository dao) {
+    public LabWorkService(LabWorkMapper mapper, LabWorkRepository repository) {
         this.mapper = mapper;
-        this.dao = dao;
+        this.repository = repository;
     }
 
     @Transactional
     public void create(LabWorkRequestDTO dto) {
         LabWork entity = mapper.toEntity(dto);
-        dao.save(entity);
+        repository.save(entity);
     }
 
     @Transactional
     public void update(LabWorkRequestDTO dto) {
         LabWork entity = mapper.toEntity(dto);
-        dao.update(entity);
+        repository.update(entity);
     }
 
     @Transactional
     public void delete(IdRequestDTO dto) {
-        dao.deleteByKey(dto.getId());
+        repository.deleteByKey(dto.getId());
     }
 
+    @Transactional
     public List<LabWorkResponseDTO> getAll() {
-        return dao.getAll().stream().map(mapper::toDTO).toList();
+        return repository.getAll().stream().map(mapper::toDTO).toList();
     }
 }
