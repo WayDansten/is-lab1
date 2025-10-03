@@ -32,6 +32,7 @@ public class LabWorkRequestDTO implements Serializable {
 
     private DisciplineRequestDTO discipline;
 
+    @DecimalMin(value = "0", inclusive = false)
     private Double minimalPoint;
 
     @NotNull

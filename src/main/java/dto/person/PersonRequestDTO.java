@@ -24,7 +24,6 @@ public class PersonRequestDTO implements Serializable {
     @NotEmpty
     private String name;
 
-    @NotNull
     private Color eyeColor;
 
     @NotNull

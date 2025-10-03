@@ -3,6 +3,7 @@ package dto.discipline;
 import java.io.Serializable;
 
 import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -17,6 +18,7 @@ public class DisciplineRequestDTO implements Serializable {
     private Integer id;
 
     @NotNull
+    @NotEmpty
     private String name;
 
     @NotNull
