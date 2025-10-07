@@ -9,10 +9,12 @@ import entity.LabWork;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 import jakarta.transaction.Transactional;
+import lombok.NoArgsConstructor;
 import mapper.LabWorkMapper;
 import repository.LabWorkRepository;
 
 @ApplicationScoped
+@NoArgsConstructor
 public class LabWorkService {
     private LabWorkMapper mapper;
     private LabWorkRepository repository;

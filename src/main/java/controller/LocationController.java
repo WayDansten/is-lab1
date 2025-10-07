@@ -17,11 +17,13 @@ import jakarta.ws.rs.core.Response;
 import service.LocationService;
 import util.MessageConstants;
 
-@Path("/api/location")
+@Path("/location")
 @Consumes(MediaType.APPLICATION_JSON)
 @Produces(MediaType.APPLICATION_JSON)
 public class LocationController {
     private LocationService service;
+    
+    public LocationController() {}
 
     @Inject
     public LocationController(LocationService service) {

@@ -6,11 +6,15 @@ import dto.IdRequestDTO;
 import dto.location.LocationRequestDTO;
 import dto.location.LocationResponseDTO;
 import entity.Location;
+import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 import jakarta.transaction.Transactional;
+import lombok.NoArgsConstructor;
 import mapper.LocationMapper;
 import repository.LocationRepository;
 
+@ApplicationScoped
+@NoArgsConstructor
 public class LocationService {
     private LocationMapper mapper;
     private LocationRepository repository;

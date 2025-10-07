@@ -6,11 +6,15 @@ import dto.IdRequestDTO;
 import dto.discipline.DisciplineRequestDTO;
 import dto.discipline.DisciplineResponseDTO;
 import entity.Discipline;
+import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 import jakarta.transaction.Transactional;
+import lombok.NoArgsConstructor;
 import mapper.DisciplineMapper;
 import repository.DisciplineRepository;
 
+@ApplicationScoped
+@NoArgsConstructor
 public class DisciplineService {
     private DisciplineMapper mapper;
     private DisciplineRepository repository;

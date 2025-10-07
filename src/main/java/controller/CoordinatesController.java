@@ -17,11 +17,13 @@ import jakarta.ws.rs.core.Response;
 import service.CoordinatesService;
 import util.MessageConstants;
 
-@Path("/api/coordinates")
+@Path("/coordinates")
 @Consumes(MediaType.APPLICATION_JSON)
 @Produces(MediaType.APPLICATION_JSON)
 public class CoordinatesController {
     private CoordinatesService service;
+    
+    public CoordinatesController() {}
 
     @Inject
     public CoordinatesController(CoordinatesService service) {

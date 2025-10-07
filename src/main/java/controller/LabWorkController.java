@@ -17,11 +17,13 @@ import jakarta.validation.ConstraintViolationException;
 import service.LabWorkService;
 import util.MessageConstants;
 
-@Path("/api/labwork")
+@Path("/labwork")
 @Consumes(MediaType.APPLICATION_JSON)
 @Produces(MediaType.APPLICATION_JSON)
 public class LabWorkController {
     private LabWorkService service;
+    
+    public LabWorkController() {}
 
     @Inject
     public LabWorkController(LabWorkService service) {

@@ -1,10 +1,13 @@
 package repository;
 
 import entity.Discipline;
-import jakarta.persistence.EntityManager;
+import jakarta.enterprise.context.ApplicationScoped;
+import jakarta.inject.Inject;
 
+@ApplicationScoped
 public class DisciplineRepository extends AbstractRepository<Discipline, Integer> {
-    public DisciplineRepository(EntityManager em) {
-        super(em, Discipline.class);
+    @Inject
+    public DisciplineRepository() {
+        super();
     }
 }

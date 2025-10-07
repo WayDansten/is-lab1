@@ -4,16 +4,19 @@ import java.util.List;
 
 import entity.LabWork;
 import entity.Person;
-import jakarta.persistence.EntityManager;
+import jakarta.enterprise.context.ApplicationScoped;
+import jakarta.inject.Inject;
 import jakarta.persistence.criteria.CriteriaBuilder;
 import jakarta.persistence.criteria.CriteriaDelete;
 import jakarta.persistence.criteria.CriteriaQuery;
 import jakarta.persistence.criteria.Join;
 import jakarta.persistence.criteria.Root;
 
+@ApplicationScoped
 public class LabWorkRepository extends AbstractRepository<LabWork, Integer> {
-    public LabWorkRepository(EntityManager em) {
-        super(em, LabWork.class);
+    @Inject
+    public LabWorkRepository() {
+        super();
     }
 
     public List<LabWork> findGreaterThanAveragePoint(float averagePoint) {

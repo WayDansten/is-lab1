@@ -9,10 +9,12 @@ import entity.Coordinates;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 import jakarta.transaction.Transactional;
+import lombok.NoArgsConstructor;
 import mapper.CoordinatesMapper;
 import repository.CoordinatesRepository;
 
 @ApplicationScoped
+@NoArgsConstructor
 public class CoordinatesService {
     private CoordinatesMapper mapper;
     private CoordinatesRepository repository;

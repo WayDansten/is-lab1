@@ -17,11 +17,13 @@ import jakarta.ws.rs.core.Response;
 import service.DisciplineService;
 import util.MessageConstants;
 
-@Path("/api/discipline")
+@Path("/discipline")
 @Consumes(MediaType.APPLICATION_JSON)
 @Produces(MediaType.APPLICATION_JSON)
 public class DisciplineController {
     private DisciplineService service;
+    
+    public DisciplineController() {}
 
     @Inject
     public DisciplineController(DisciplineService service) {

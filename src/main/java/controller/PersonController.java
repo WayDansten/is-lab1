@@ -17,11 +17,13 @@ import jakarta.ws.rs.core.Response;
 import service.PersonService;
 import util.MessageConstants;
 
-@Path("/api/person")
+@Path("/person")
 @Consumes(MediaType.APPLICATION_JSON)
 @Produces(MediaType.APPLICATION_JSON)
 public class PersonController {
     private PersonService service;
+    
+    public PersonController() {}
 
     @Inject
     public PersonController(PersonService service) {

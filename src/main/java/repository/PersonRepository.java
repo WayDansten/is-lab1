@@ -1,10 +1,13 @@
 package repository;
 
 import entity.Person;
-import jakarta.persistence.EntityManager;
+import jakarta.enterprise.context.ApplicationScoped;
+import jakarta.inject.Inject;
 
+@ApplicationScoped
 public class PersonRepository extends AbstractRepository<Person, Integer> {
-    public PersonRepository(EntityManager em) {
-        super(em, Person.class);
+    @Inject
+    public PersonRepository() {
+        super();
     }
 }

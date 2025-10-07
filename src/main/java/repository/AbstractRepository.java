@@ -6,12 +6,12 @@ import jakarta.persistence.EntityManager;
 import jakarta.persistence.criteria.CriteriaBuilder;
 import jakarta.persistence.criteria.CriteriaQuery;
 import jakarta.persistence.criteria.Root;
-import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
 
-@AllArgsConstructor
+@NoArgsConstructor
 public abstract class AbstractRepository<T, K> {
-    protected final EntityManager em;
-    private final Class<T> entityClass;
+    protected EntityManager em;
+    private Class<T> entityClass;
 
     public void save(T entity) {
         em.persist(entity);

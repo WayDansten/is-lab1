@@ -6,11 +6,15 @@ import dto.IdRequestDTO;
 import dto.person.PersonRequestDTO;
 import dto.person.PersonResponseDTO;
 import entity.Person;
+import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 import jakarta.transaction.Transactional;
+import lombok.NoArgsConstructor;
 import mapper.PersonMapper;
 import repository.PersonRepository;
 
+@ApplicationScoped
+@NoArgsConstructor
 public class PersonService {
     private PersonMapper mapper;
     private PersonRepository repository;

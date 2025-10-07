@@ -1,10 +1,13 @@
 package repository;
 
 import entity.Location;
-import jakarta.persistence.EntityManager;
+import jakarta.enterprise.context.ApplicationScoped;
+import jakarta.inject.Inject;
 
+@ApplicationScoped
 public class LocationRepository extends AbstractRepository<Location, Integer> {
-    public LocationRepository(EntityManager em) {
-        super(em, Location.class);
+    @Inject
+    public LocationRepository() {
+        super();
     }
 }

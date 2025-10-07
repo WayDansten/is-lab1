@@ -1,10 +1,13 @@
 package repository;
 
 import entity.Coordinates;
-import jakarta.persistence.EntityManager;
+import jakarta.enterprise.context.ApplicationScoped;
+import jakarta.inject.Inject;
 
+@ApplicationScoped
 public class CoordinatesRepository extends AbstractRepository<Coordinates, Integer> {
-    public CoordinatesRepository(EntityManager em) {
-        super(em, Coordinates.class);
+    @Inject
+    public CoordinatesRepository() {
+        super();
     }
 }
