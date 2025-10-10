@@ -19,11 +19,11 @@ import lombok.Setter;
 public class Coordinates {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private Integer id;
 
     @Column(name = "x", nullable = false)
-    private float x;
+    private Float x;
 
     @Column(name = "y", nullable = false)
-    private double y;
+    private Double y;
 }

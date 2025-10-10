@@ -2,7 +2,6 @@ package service;
 
 import java.util.List;
 
-import dto.IdRequestDTO;
 import dto.discipline.DisciplineRequestDTO;
 import dto.discipline.DisciplineResponseDTO;
 import entity.Discipline;
@@ -38,9 +37,10 @@ public class DisciplineService {
     }
 
     @Transactional
-    public void delete(IdRequestDTO dto) {
-        repository.deleteByKey(dto.getId());
+    public void delete(Integer id) {
+        repository.deleteByKey(id);
     }
+
 
     @Transactional
     public List<DisciplineResponseDTO> getAll() {

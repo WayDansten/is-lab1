@@ -8,6 +8,6 @@ import jakarta.inject.Inject;
 public class PersonRepository extends AbstractRepository<Person, Integer> {
     @Inject
     public PersonRepository() {
-        super();
+        super(Person.class);
     }
 }

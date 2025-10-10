@@ -3,6 +3,8 @@ package repository;
 import java.util.List;
 
 import jakarta.persistence.EntityManager;
+import jakarta.persistence.EntityNotFoundException;
+import jakarta.persistence.PersistenceContext;
 import jakarta.persistence.criteria.CriteriaBuilder;
 import jakarta.persistence.criteria.CriteriaQuery;
 import jakarta.persistence.criteria.Root;
@@ -10,8 +12,14 @@ import lombok.NoArgsConstructor;
 
 @NoArgsConstructor
 public abstract class AbstractRepository<T, K> {
+    @PersistenceContext
     protected EntityManager em;
+
     private Class<T> entityClass;
+
+    protected AbstractRepository(Class<T> entityClass) {
+        this.entityClass = entityClass;
+    }
 
     public void save(T entity) {
         em.persist(entity);
@@ -40,6 +48,9 @@ public abstract class AbstractRepository<T, K> {
 
     public void deleteByKey(K key) {
         T entity = this.getByKey(key);
+        if (entity == null) {
+            throw new EntityNotFoundException();
+        }
         em.remove(entity);
     }
 }

@@ -3,11 +3,9 @@ package controller;
 import java.util.List;
 
 import jakarta.ws.rs.*;
-
-import dto.ErrorResponseDTO;
-import dto.IdRequestDTO;
 import dto.person.PersonRequestDTO;
 import dto.person.PersonResponseDTO;
+import dto.response.MessageResponseDTO;
 import jakarta.inject.Inject;
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.persistence.PersistenceException;
@@ -37,7 +35,7 @@ public class PersonController {
             return Response.status(Response.Status.CREATED).entity(MessageConstants.OK.getMessage()).build();
         } catch (PersistenceException e) {
             return Response.status(Response.Status.BAD_REQUEST)
-                    .entity(new ErrorResponseDTO(MessageConstants.ERR_BAD_REQUEST.getMessage())).build();
+                    .entity(new MessageResponseDTO(MessageConstants.ERR_BAD_REQUEST.getMessage())).build();
         }
     }
 
@@ -54,12 +52,13 @@ public class PersonController {
     }
 
     @DELETE
-    public Response deleteByID(IdRequestDTO dto) {
+    @Path("/{id}")
+    public Response delete(@PathParam("id") Integer id) {
         try {
-            service.delete(dto);
+            service.delete(id);
             return Response.ok(MessageConstants.OK.getMessage()).build();
         } catch (PersistenceException e) {
-            return Response.status(Response.Status.NOT_FOUND).entity(new ErrorResponseDTO(MessageConstants.ERR_NOT_FOUND.getMessage())).build();
+            return Response.status(Response.Status.NOT_FOUND).entity(new MessageResponseDTO(MessageConstants.ERR_NOT_FOUND.getMessage())).build();
         }
     }
 

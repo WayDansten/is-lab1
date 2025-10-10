@@ -5,11 +5,9 @@ import java.util.List;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
-
-import dto.ErrorResponseDTO;
-import dto.IdRequestDTO;
 import dto.labwork.LabWorkRequestDTO;
 import dto.labwork.LabWorkResponseDTO;
+import dto.response.MessageResponseDTO;
 import jakarta.inject.Inject;
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.persistence.PersistenceException;
@@ -34,10 +32,10 @@ public class LabWorkController {
     public Response add(LabWorkRequestDTO dto) {
         try {
             service.create(dto);
-            return Response.status(Response.Status.CREATED).entity(MessageConstants.OK.getMessage()).build();
+            return Response.status(Response.Status.CREATED).entity(new MessageResponseDTO(MessageConstants.OK.getMessage())).build();
         } catch (PersistenceException e) {
             return Response.status(Response.Status.BAD_REQUEST)
-                    .entity(new ErrorResponseDTO(MessageConstants.ERR_BAD_REQUEST.getMessage())).build();
+                    .entity(new MessageResponseDTO(MessageConstants.ERR_BAD_REQUEST.getMessage())).build();
         }
     }
 
@@ -45,7 +43,7 @@ public class LabWorkController {
     public Response update(LabWorkRequestDTO dto) {
         try {
             service.update(dto);
-            return Response.ok(MessageConstants.OK.getMessage()).build();
+            return Response.ok(new MessageResponseDTO(MessageConstants.OK.getMessage())).build();
         } catch (EntityNotFoundException e) {
             return Response.status(Response.Status.NOT_FOUND).entity(MessageConstants.ERR_NOT_FOUND.getMessage()).build();
         } catch (ConstraintViolationException e) {
@@ -54,12 +52,13 @@ public class LabWorkController {
     }
 
     @DELETE
-    public Response delete(IdRequestDTO dto) {
+    @Path("/{id}")
+    public Response delete(@PathParam("id") Integer id) {
         try {
-            service.delete(dto);
-            return Response.ok(MessageConstants.OK.getMessage()).build();
-        } catch (PersistenceException e) {
-            return Response.status(Response.Status.NOT_FOUND).entity(new ErrorResponseDTO(MessageConstants.ERR_NOT_FOUND.getMessage())).build();
+            service.delete(id);
+            return Response.ok(new MessageResponseDTO(MessageConstants.OK.getMessage())).build();
+        } catch (EntityNotFoundException e) {
+            return Response.status(Response.Status.NOT_FOUND).entity(new MessageResponseDTO(MessageConstants.ERR_NOT_FOUND.getMessage())).build();
         }
     }
 

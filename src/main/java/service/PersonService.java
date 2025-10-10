@@ -2,7 +2,6 @@ package service;
 
 import java.util.List;
 
-import dto.IdRequestDTO;
 import dto.person.PersonRequestDTO;
 import dto.person.PersonResponseDTO;
 import entity.Person;
@@ -38,8 +37,8 @@ public class PersonService {
     }
 
     @Transactional
-    public void delete(IdRequestDTO dto) {
-        repository.deleteByKey(dto.getId());
+    public void delete(Integer id) {
+        repository.deleteByKey(id);
     }
 
     @Transactional

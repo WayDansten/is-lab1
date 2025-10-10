@@ -19,11 +19,11 @@ import lombok.Setter;
 public class Discipline {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private Integer id;
 
     @Column(name = "discipline_name", nullable = false, unique = true)
     private String name;
 
     @Column(name = "practiceHours", nullable = false)
-    private int practiceHours;
+    private Integer practiceHours;
 }

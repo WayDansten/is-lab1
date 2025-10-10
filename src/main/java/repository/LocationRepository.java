@@ -8,6 +8,6 @@ import jakarta.inject.Inject;
 public class LocationRepository extends AbstractRepository<Location, Integer> {
     @Inject
     public LocationRepository() {
-        super();
+        super(Location.class);
     }
 }

@@ -8,6 +8,6 @@ import jakarta.inject.Inject;
 public class DisciplineRepository extends AbstractRepository<Discipline, Integer> {
     @Inject
     public DisciplineRepository() {
-        super();
+        super(Discipline.class);
     }
 }

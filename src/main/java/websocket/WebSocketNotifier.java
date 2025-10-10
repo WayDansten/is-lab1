@@ -4,14 +4,12 @@ import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
 
-import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.json.Json;
 import jakarta.websocket.Session;
 import jakarta.websocket.OnClose;
 import jakarta.websocket.OnOpen;
 import jakarta.websocket.server.ServerEndpoint;
 
-@ApplicationScoped
 @ServerEndpoint("/ws")
 public class WebSocketNotifier {
     private static final Set<Session> sessions = Collections.synchronizedSet(new HashSet<>());

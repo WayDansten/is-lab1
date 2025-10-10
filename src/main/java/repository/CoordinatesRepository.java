@@ -8,6 +8,6 @@ import jakarta.inject.Inject;
 public class CoordinatesRepository extends AbstractRepository<Coordinates, Integer> {
     @Inject
     public CoordinatesRepository() {
-        super();
+        super(Coordinates.class);
     }
 }

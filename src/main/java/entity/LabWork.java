@@ -2,6 +2,7 @@ package entity;
 
 import java.time.LocalDateTime;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -16,7 +17,6 @@ import jakarta.persistence.Enumerated;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.validation.constraints.DecimalMin;
-import jakarta.validation.constraints.Min;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -29,13 +29,12 @@ import lombok.Setter;
 public class LabWork {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Min(value = 1)
-    private int id;
+    private Integer id;
 
     @Column(name = "labwork_name", nullable = false)
     private String name;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "coordinates_id")
     private Coordinates coordinates;
 
@@ -49,7 +48,7 @@ public class LabWork {
     @Column(name = "difficulty", nullable = true)
     private Difficulty difficulty;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "discipline_id")
     private Discipline discipline;
 
@@ -58,9 +57,9 @@ public class LabWork {
 
     @Column(name = "average_point", nullable = false)
     @DecimalMin(value = "0", inclusive = false)
-    private float averagePoint;
+    private Float averagePoint;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "author_id")
     private Person author;
 

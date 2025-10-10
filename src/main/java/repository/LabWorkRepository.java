@@ -16,7 +16,7 @@ import jakarta.persistence.criteria.Root;
 public class LabWorkRepository extends AbstractRepository<LabWork, Integer> {
     @Inject
     public LabWorkRepository() {
-        super();
+        super(LabWork.class);
     }
 
     public List<LabWork> findGreaterThanAveragePoint(float averagePoint) {

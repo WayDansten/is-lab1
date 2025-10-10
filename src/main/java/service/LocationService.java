@@ -2,7 +2,6 @@ package service;
 
 import java.util.List;
 
-import dto.IdRequestDTO;
 import dto.location.LocationRequestDTO;
 import dto.location.LocationResponseDTO;
 import entity.Location;
@@ -38,8 +37,8 @@ public class LocationService {
     }
 
     @Transactional
-    public void delete(IdRequestDTO dto) {
-        repository.deleteByKey(dto.getId());
+    public void delete(Integer id) {
+        repository.deleteByKey(id);
     }
 
     @Transactional

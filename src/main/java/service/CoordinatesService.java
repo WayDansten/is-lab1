@@ -2,7 +2,6 @@ package service;
 
 import java.util.List;
 
-import dto.IdRequestDTO;
 import dto.coordinates.CoordinatesRequestDTO;
 import dto.coordinates.CoordinatesResponseDTO;
 import entity.Coordinates;
@@ -38,8 +37,8 @@ public class CoordinatesService {
     }
 
     @Transactional
-    public void delete(IdRequestDTO dto) {
-        repository.deleteByKey(dto.getId());
+    public void delete(Integer id) {
+        repository.deleteByKey(id);
     }
 
     @Transactional

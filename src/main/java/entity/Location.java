@@ -19,7 +19,7 @@ import lombok.Setter;
 public class Location {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private Integer id;
 
     @Column(name = "location_name", nullable = false, unique = true, length = 246)
     private String name;
@@ -28,8 +28,8 @@ public class Location {
     private Long x;
 
     @Column(name = "y", nullable = false)
-    private double y;
+    private Double y;
 
     @Column(name = "z", nullable = false)
-    private float z;
+    private Float z;
 }
