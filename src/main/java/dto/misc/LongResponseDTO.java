@@ -1,4 +1,4 @@
-package dto.response;
+package dto.misc;
 
 import java.io.Serializable;
 
@@ -11,6 +11,6 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class MessageResponseDTO implements Serializable {
-    private String message;
+public class LongResponseDTO implements Serializable {
+    private Long value;
 }

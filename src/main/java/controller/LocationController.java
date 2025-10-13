@@ -5,7 +5,7 @@ import java.util.List;
 import jakarta.ws.rs.*;
 import dto.location.LocationRequestDTO;
 import dto.location.LocationResponseDTO;
-import dto.response.MessageResponseDTO;
+import dto.misc.StringResponseDTO;
 import jakarta.inject.Inject;
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.persistence.PersistenceException;
@@ -35,7 +35,7 @@ public class LocationController {
             return Response.status(Response.Status.CREATED).entity(MessageConstants.OK.getMessage()).build();
         } catch (PersistenceException e) {
             return Response.status(Response.Status.BAD_REQUEST)
-                    .entity(new MessageResponseDTO(MessageConstants.ERR_BAD_REQUEST.getMessage())).build();
+                    .entity(new StringResponseDTO(MessageConstants.ERR_BAD_REQUEST.getMessage())).build();
         }
     }
 
@@ -58,7 +58,7 @@ public class LocationController {
             service.delete(id);
             return Response.ok(MessageConstants.OK.getMessage()).build();
         } catch (PersistenceException e) {
-            return Response.status(Response.Status.NOT_FOUND).entity(new MessageResponseDTO(MessageConstants.ERR_NOT_FOUND.getMessage())).build();
+            return Response.status(Response.Status.NOT_FOUND).entity(new StringResponseDTO(MessageConstants.ERR_NOT_FOUND.getMessage())).build();
         }
     }
 
