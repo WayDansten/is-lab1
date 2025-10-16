@@ -10,6 +10,7 @@ import entity.LabWork;
 import entity.types.Difficulty;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
+import jakarta.persistence.EntityNotFoundException;
 import jakarta.transaction.Transactional;
 import lombok.NoArgsConstructor;
 import mapper.LabWorkMapper;
@@ -61,6 +62,9 @@ public class LabWorkService {
     @Transactional
     public void deleteByAuthor(String author) {
         List<LabWork> labWorks = repository.getByAuthor(author);
+        if (labWorks.isEmpty()) {
+            throw new EntityNotFoundException();
+        }
         int id = random.nextInt(labWorks.size());
         repository.deleteByKey(id);
         WebSocketNotifier.broadcast(WebSocketMessageType.LABWORK);

@@ -12,7 +12,7 @@ import lombok.NoArgsConstructor;
 
 @NoArgsConstructor
 public abstract class AbstractRepository<T, K> {
-    @PersistenceContext
+    @PersistenceContext(unitName = "persistence-unit")
     protected EntityManager em;
 
     private Class<T> entityClass;
