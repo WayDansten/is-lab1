@@ -13,6 +13,9 @@ public class DisciplineMapper {
 
     public Discipline toEntity(DisciplineRequestDTO dto) {
         Discipline entity = new Discipline();
+        if (dto.getId() != null) {
+            entity.setId(dto.getId());
+        }
         entity.setName(dto.getName());
         entity.setPracticeHours(dto.getPracticeHours());
         return entity;

@@ -1,6 +1,7 @@
 package dto.labwork;
 
 import java.io.Serializable;
+import java.time.LocalDateTime;
 
 import dto.coordinates.CoordinatesRequestDTO;
 import dto.discipline.DisciplineRequestDTO;
@@ -19,12 +20,16 @@ import lombok.Setter;
 @AllArgsConstructor
 @NoArgsConstructor
 public class LabWorkRequestDTO implements Serializable {
+    private Integer id;
+    
     @NotNull
     @NotEmpty
     private String name;
 
     @NotNull
     private CoordinatesRequestDTO coordinates;
+
+    private LocalDateTime creationDate;
 
     private String description;
 

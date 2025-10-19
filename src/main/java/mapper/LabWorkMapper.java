@@ -36,6 +36,10 @@ public class LabWorkMapper {
 
     public LabWork toEntity(LabWorkRequestDTO dto) {
         LabWork entity = new LabWork();
+        if (dto.getId() != null) {
+            entity.setId(dto.getId());
+            entity.setCreationDate(dto.getCreationDate());
+        }
         entity.setName(dto.getName());
         entity.setCoordinates(coordinatesMapper.toEntity(dto.getCoordinates()));
         entity.setDescription(dto.getDescription());

@@ -23,6 +23,9 @@ public class PersonMapper {
 
     public Person toEntity(PersonRequestDTO dto) {
         Person entity = new Person();
+        if (dto.getId() != null) {
+            entity.setId(dto.getId());
+        }
         entity.setName(dto.getName());
         entity.setEyeColor(dto.getEyeColor());
         entity.setHairColor(dto.getHairColor());

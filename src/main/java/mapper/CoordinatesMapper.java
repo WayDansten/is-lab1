@@ -13,6 +13,9 @@ public class CoordinatesMapper {
 
     public Coordinates toEntity(CoordinatesRequestDTO dto) {
         Coordinates entity = new Coordinates();
+        if (dto.getId() != null) {
+            entity.setId(dto.getId());
+        }
         entity.setX(dto.getX());
         entity.setY(dto.getY());
         return entity;
