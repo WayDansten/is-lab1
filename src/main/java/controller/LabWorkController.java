@@ -1,6 +1,8 @@
 package controller;
 
 import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
@@ -12,19 +14,19 @@ import dto.misc.LongResponseDTO;
 import dto.misc.StringRequestDTO;
 import dto.misc.StringResponseDTO;
 import jakarta.inject.Inject;
-import jakarta.persistence.EntityNotFoundException;
-import jakarta.persistence.PersistenceException;
-import jakarta.validation.ConstraintViolationException;
 import service.LabWorkService;
 import util.MessageConstants;
+import websocket.WebSocketMessageType;
+import websocket.WebSocketNotifier;
 
 @Path("/labwork")
 @Consumes(MediaType.APPLICATION_JSON)
 @Produces(MediaType.APPLICATION_JSON)
 public class LabWorkController {
     private LabWorkService service;
-    
-    public LabWorkController() {}
+
+    public LabWorkController() {
+    }
 
     @Inject
     public LabWorkController(LabWorkService service) {
@@ -33,58 +35,41 @@ public class LabWorkController {
 
     @POST
     public Response add(LabWorkRequestDTO dto) {
-        try {
-            service.create(dto);
-            return Response.status(Response.Status.CREATED).entity(new StringResponseDTO(MessageConstants.OK.getMessage())).build();
-        } catch (PersistenceException e) {
-            return Response.status(Response.Status.BAD_REQUEST)
-                    .entity(new StringResponseDTO(MessageConstants.ERR_BAD_REQUEST.getMessage())).build();
-        }
+        Set<WebSocketMessageType> changedTypes = service.create(dto);
+        changedTypes.forEach(WebSocketNotifier::broadcast);
+        return Response.status(Response.Status.CREATED).entity(new StringResponseDTO(MessageConstants.OK.getMessage()))
+                .build();
     }
 
     @PATCH
     public Response update(LabWorkRequestDTO dto) {
-        try {
-            service.update(dto);
-            return Response.ok(new StringResponseDTO(MessageConstants.OK.getMessage())).build();
-        } catch (EntityNotFoundException e) {
-            return Response.status(Response.Status.NOT_FOUND).entity(MessageConstants.ERR_NOT_FOUND.getMessage()).build();
-        } catch (ConstraintViolationException e) {
-            return Response.status(Response.Status.BAD_REQUEST).entity(MessageConstants.ERR_BAD_REQUEST.getMessage()).build();
-        }
+        Set<WebSocketMessageType> changedTypes = service.update(dto);
+        changedTypes.forEach(WebSocketNotifier::broadcast);
+        return Response.ok(new StringResponseDTO(MessageConstants.OK.getMessage())).build();
     }
 
     @PATCH
-    @Path("/{id}")
-    public Response lowerDifficulty(@PathParam("id") Integer id, DifficultyRequestDTO dto) {
-        try {
-            service.lowerDifficulty(id, dto.getDifficulty());
-            return Response.ok(new StringResponseDTO(MessageConstants.OK.getMessage())).build();
-        } catch (EntityNotFoundException e) {
-            return Response.status(Response.Status.NOT_FOUND).entity(MessageConstants.ERR_NOT_FOUND.getMessage()).build();
-        }
+    @Path("/difficulty")
+    public Response lowerDifficulty(DifficultyRequestDTO dto) {
+        service.lowerDifficulty(dto.getId(), dto.getSteps());
+        WebSocketNotifier.broadcast(WebSocketMessageType.LABWORK);
+        return Response.ok(new StringResponseDTO(MessageConstants.OK.getMessage())).build();
     }
 
     @DELETE
     @Path("/{id}")
     public Response delete(@PathParam("id") Integer id) {
-        try {
-            service.delete(id);
-            return Response.ok(new StringResponseDTO(MessageConstants.OK.getMessage())).build();
-        } catch (EntityNotFoundException e) {
-            return Response.status(Response.Status.NOT_FOUND).entity(new StringResponseDTO(MessageConstants.ERR_NOT_FOUND.getMessage())).build();
-        }
+        service.delete(id);
+        WebSocketNotifier.broadcast(WebSocketMessageType.LABWORK);
+        return Response.ok(new StringResponseDTO(MessageConstants.OK.getMessage())).build();
     }
 
     @DELETE
     @Path("/author")
     public Response deleteByAuthor(StringRequestDTO dto) {
-        try {
-            service.deleteByAuthor(dto.getString());
-            return Response.ok(new StringResponseDTO(MessageConstants.OK.getMessage())).build();
-        } catch (EntityNotFoundException e) {
-            return Response.status(Response.Status.NOT_FOUND).entity(new StringResponseDTO(MessageConstants.ERR_NOT_FOUND.getMessage())).build();
-        }
+        service.deleteByAuthor(dto.getString());
+        WebSocketNotifier.broadcast(WebSocketMessageType.LABWORK);
+        return Response.ok(new StringResponseDTO(MessageConstants.OK.getMessage())).build();
     }
 
     @GET
@@ -98,5 +83,19 @@ public class LabWorkController {
     public Response countGreaterThanAveragePoint(@QueryParam("averagePoint") Float averagePoint) {
         Long count = service.countGreaterThanAveragePoint(averagePoint);
         return Response.ok(new LongResponseDTO(count)).build();
+    }
+
+    @GET
+    @Path("description")
+    public Response getByDescription(@QueryParam("prefix") String prefix) {
+        List<String> data = service.getByDescription(prefix);
+        if (data.isEmpty()) {
+            return Response.status(Response.Status.BAD_REQUEST)
+                    .entity(new StringResponseDTO(MessageConstants.ERR_NOT_FOUND.getMessage()))
+                    .build();
+        }
+        String names = data.stream().collect(Collectors.joining(", "));
+        String responseString = String.format("Found lab works: %s.", names);
+        return Response.ok(new StringResponseDTO(responseString)).build();
     }
 }

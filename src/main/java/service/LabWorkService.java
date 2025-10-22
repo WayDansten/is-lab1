@@ -2,7 +2,7 @@ package service;
 
 import java.util.List;
 import java.util.Objects;
-import java.util.Random;
+import java.util.Set;
 
 import dto.labwork.LabWorkRequestDTO;
 import dto.labwork.LabWorkResponseDTO;
@@ -12,51 +12,56 @@ import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.transaction.Transactional;
+import jakarta.validation.ConstraintViolationException;
 import lombok.NoArgsConstructor;
 import mapper.LabWorkMapper;
 import repository.LabWorkRepository;
 import websocket.WebSocketMessageType;
-import websocket.WebSocketNotifier;
 
 @ApplicationScoped
 @NoArgsConstructor
 public class LabWorkService {
     private LabWorkMapper mapper;
     private LabWorkRepository repository;
-    private final Random random = new Random();
+    private ChangeTrackerService trackerService;
 
     @Inject
-    public LabWorkService(LabWorkMapper mapper, LabWorkRepository repository) {
+    public LabWorkService(LabWorkMapper mapper, LabWorkRepository repository, ChangeTrackerService trackerService) {
         this.mapper = mapper;
         this.repository = repository;
+        this.trackerService = trackerService;
     }
 
     @Transactional
-    public void create(LabWorkRequestDTO dto) {
+    public Set<WebSocketMessageType> create(LabWorkRequestDTO dto) {
+        Set<WebSocketMessageType> changedTypes = trackerService.trackChanges(dto);
         LabWork entity = mapper.toEntity(dto);
         repository.save(entity);
-        WebSocketNotifier.broadcast(WebSocketMessageType.LABWORK);
+        return changedTypes;
     }
 
     @Transactional
-    public void update(LabWorkRequestDTO dto) {
+    public Set<WebSocketMessageType> update(LabWorkRequestDTO dto) {
+        Set<WebSocketMessageType> changedTypes = trackerService.trackChanges(dto);
         LabWork entity = mapper.toEntity(dto);
         repository.update(entity);
-        WebSocketNotifier.broadcast(WebSocketMessageType.LABWORK);
+        return changedTypes;
     }
 
     @Transactional
-    public void lowerDifficulty(Integer id, Difficulty difficulty) {
+    public void lowerDifficulty(Integer id, Integer steps) {
         LabWork entity = repository.getByKey(id);
-        entity.setDifficulty(difficulty);
+        if (entity.getDifficulty().getValue() - steps <= 0) {
+            throw new ConstraintViolationException(null, null);
+        }
+        Difficulty newDifficulty = Difficulty.getByValue(entity.getDifficulty().getValue() - steps);
+        entity.setDifficulty(newDifficulty);
         repository.update(entity);
-        WebSocketNotifier.broadcast(WebSocketMessageType.LABWORK);
     }
 
     @Transactional
     public void delete(Integer id) {
         repository.deleteByKey(id);
-        WebSocketNotifier.broadcast(WebSocketMessageType.LABWORK);
     }
 
     @Transactional
@@ -65,9 +70,7 @@ public class LabWorkService {
         if (labWorks.isEmpty()) {
             throw new EntityNotFoundException();
         }
-        int id = random.nextInt(labWorks.size());
-        repository.deleteByKey(id);
-        WebSocketNotifier.broadcast(WebSocketMessageType.LABWORK);
+        repository.delete(labWorks.get(0));
     }
 
     @Transactional
@@ -78,5 +81,10 @@ public class LabWorkService {
     @Transactional
     public Long countGreaterThanAveragePoint(Float averagePoint) {
         return repository.countGreaterThanAveragePoint(averagePoint);
+    }
+
+    @Transactional
+    public List<String> getByDescription(String prefix) {
+        return repository.getByDescription(prefix);
     }
 }

@@ -56,4 +56,21 @@ public class LabWorkRepository extends AbstractRepository<LabWork, Integer> {
 
         return em.createQuery(cq).getSingleResult();
     }
+
+    public List<String> getByDescription(String prefix) {
+        CriteriaBuilder cb = em.getCriteriaBuilder();
+        CriteriaQuery<String> cq = cb.createQuery(String.class);
+        Root<LabWork> root = cq.from(LabWork.class);
+
+        cq.select(root.get("name"));
+        
+        cq.where(cb.like(
+            cb.lower(root.get("description")),
+            prefix.toLowerCase().trim() + "%"
+        ));
+
+        cq.orderBy(cb.asc(root.get("name")));
+
+        return em.createQuery(cq).getResultList();
+    }
 }

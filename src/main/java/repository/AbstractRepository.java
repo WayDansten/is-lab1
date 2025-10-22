@@ -22,7 +22,7 @@ public abstract class AbstractRepository<T, K> {
     }
 
     public void save(T entity) {
-        em.persist(entity);
+        em.merge(entity);
     }
 
     public List<T> getAll() {

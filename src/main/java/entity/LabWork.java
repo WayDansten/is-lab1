@@ -34,7 +34,7 @@ public class LabWork {
     @Column(name = "labwork_name", nullable = false)
     private String name;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne(cascade = CascadeType.MERGE)
     @JoinColumn(name = "coordinates_id")
     private Coordinates coordinates;
 
@@ -48,7 +48,7 @@ public class LabWork {
     @Column(name = "difficulty", nullable = true)
     private Difficulty difficulty;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne(cascade = CascadeType.MERGE)
     @JoinColumn(name = "discipline_id")
     private Discipline discipline;
 
@@ -59,7 +59,7 @@ public class LabWork {
     @DecimalMin(value = "0", inclusive = false)
     private Float averagePoint;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne(cascade = CascadeType.MERGE)
     @JoinColumn(name = "author_id")
     private Person author;
 

@@ -41,7 +41,7 @@ public class Person {
     @Column(name = "hair_color", nullable = false)
     private Color hairColor;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne(cascade = CascadeType.MERGE)
     @JoinColumn(name = "location_id")
     private Location location;
 
