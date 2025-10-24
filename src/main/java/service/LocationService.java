@@ -2,9 +2,7 @@ package service;
 
 import java.util.List;
 
-import dto.location.LocationRequestDTO;
 import dto.location.LocationResponseDTO;
-import entity.Location;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 import jakarta.transaction.Transactional;
@@ -22,23 +20,6 @@ public class LocationService {
     public LocationService(LocationMapper mapper, LocationRepository repository) {
         this.mapper = mapper;
         this.repository = repository;
-    }
-
-    @Transactional
-    public void create(LocationRequestDTO dto) {
-        Location entity = mapper.toEntity(dto);
-        repository.save(entity);
-    }
-
-    @Transactional
-    public void update(LocationRequestDTO dto) {
-        Location entity = mapper.toEntity(dto);
-        repository.update(entity);
-    }
-
-    @Transactional
-    public void delete(Integer id) {
-        repository.deleteByKey(id);
     }
 
     @Transactional

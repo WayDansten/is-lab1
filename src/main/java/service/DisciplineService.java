@@ -2,9 +2,7 @@ package service;
 
 import java.util.List;
 
-import dto.discipline.DisciplineRequestDTO;
 import dto.discipline.DisciplineResponseDTO;
-import entity.Discipline;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 import jakarta.transaction.Transactional;
@@ -23,24 +21,6 @@ public class DisciplineService {
         this.mapper = mapper;
         this.repository = repository;
     }
-
-    @Transactional
-    public void create(DisciplineRequestDTO dto) {
-        Discipline entity = mapper.toEntity(dto);
-        repository.save(entity);
-    }
-
-    @Transactional
-    public void update(DisciplineRequestDTO dto) {
-        Discipline entity = mapper.toEntity(dto);
-        repository.update(entity);
-    }
-
-    @Transactional
-    public void delete(Integer id) {
-        repository.deleteByKey(id);
-    }
-
 
     @Transactional
     public List<DisciplineResponseDTO> getAll() {

@@ -2,9 +2,7 @@ package service;
 
 import java.util.List;
 
-import dto.coordinates.CoordinatesRequestDTO;
 import dto.coordinates.CoordinatesResponseDTO;
-import entity.Coordinates;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 import jakarta.transaction.Transactional;
@@ -22,23 +20,6 @@ public class CoordinatesService {
     public CoordinatesService(CoordinatesMapper mapper, CoordinatesRepository repository) {
         this.mapper = mapper;
         this.repository = repository;
-    }
-
-    @Transactional
-    public void create(CoordinatesRequestDTO dto) {
-        Coordinates entity = mapper.toEntity(dto);
-        repository.save(entity);
-    }
-
-    @Transactional
-    public void update(CoordinatesRequestDTO dto) {
-        Coordinates entity = mapper.toEntity(dto);
-        repository.update(entity);
-    }
-
-    @Transactional
-    public void delete(Integer id) {
-        repository.deleteByKey(id);
     }
 
     @Transactional
