@@ -12,16 +12,16 @@ import jakarta.websocket.server.ServerEndpoint;
 
 @ServerEndpoint("/ws")
 public class WebSocketNotifier {
-    private static final Set<Session> sessions = Collections.synchronizedSet(new HashSet<>());
+    private static final Set<Session> SESSIONS = Collections.synchronizedSet(new HashSet<>());
 
     @OnOpen
     public void onOpen(Session session) {
-        sessions.add(session);
+        SESSIONS.add(session);
     }
 
     @OnClose
     public void onClose(Session session) {
-        sessions.remove(session);
+        SESSIONS.remove(session);
     }
 
     public static void broadcast(WebSocketMessageType type) {
@@ -29,8 +29,8 @@ public class WebSocketNotifier {
                 .add("type", type.name())
                 .build()
                 .toString();
-        synchronized (sessions) {
-            sessions.forEach(session -> {
+        synchronized (SESSIONS) {
+            SESSIONS.forEach(session -> {
                 try {
                     session.getBasicRemote().sendText(notificationMessage);
                 } catch (Exception e) {
