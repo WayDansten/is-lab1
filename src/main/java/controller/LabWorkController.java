@@ -1,7 +1,6 @@
 package controller;
 
 import java.util.List;
-import java.util.Set;
 import java.util.stream.Collectors;
 
 import jakarta.ws.rs.GET;
@@ -24,8 +23,6 @@ import dto.misc.StringResponseDTO;
 import jakarta.inject.Inject;
 import service.LabWorkService;
 import util.MessageConstants;
-import websocket.WebSocketMessageType;
-import websocket.WebSocketNotifier;
 
 @Path("/labwork")
 @Consumes(MediaType.APPLICATION_JSON)
@@ -43,16 +40,14 @@ public class LabWorkController {
 
     @POST
     public Response add(LabWorkRequestDTO dto) {
-        Set<WebSocketMessageType> changedTypes = service.create(dto);
-        changedTypes.forEach(WebSocketNotifier::broadcast);
+        service.create(dto);
         return Response.status(Response.Status.CREATED).entity(new StringResponseDTO(MessageConstants.OK.getMessage()))
                 .build();
     }
 
     @PATCH
     public Response update(LabWorkRequestDTO dto) {
-        Set<WebSocketMessageType> changedTypes = service.update(dto);
-        changedTypes.forEach(WebSocketNotifier::broadcast);
+        service.update(dto);
         return Response.ok(new StringResponseDTO(MessageConstants.OK.getMessage())).build();
     }
 
@@ -60,7 +55,6 @@ public class LabWorkController {
     @Path("/difficulty")
     public Response lowerDifficulty(DifficultyRequestDTO dto) {
         service.lowerDifficulty(dto.getId(), dto.getSteps());
-        WebSocketNotifier.broadcast(WebSocketMessageType.LABWORK);
         return Response.ok(new StringResponseDTO(MessageConstants.OK.getMessage())).build();
     }
 
@@ -68,7 +62,6 @@ public class LabWorkController {
     @Path("/{id}")
     public Response delete(@PathParam("id") Integer id) {
         service.delete(id);
-        WebSocketNotifier.broadcast(WebSocketMessageType.LABWORK);
         return Response.ok(new StringResponseDTO(MessageConstants.OK.getMessage())).build();
     }
 
@@ -76,7 +69,6 @@ public class LabWorkController {
     @Path("/author")
     public Response deleteByAuthor(StringRequestDTO dto) {
         service.deleteByAuthor(dto.getString());
-        WebSocketNotifier.broadcast(WebSocketMessageType.LABWORK);
         return Response.ok(new StringResponseDTO(MessageConstants.OK.getMessage())).build();
     }
 
