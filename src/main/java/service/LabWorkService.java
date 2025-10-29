@@ -8,11 +8,11 @@ import dto.labwork.LabWorkRequestDTO;
 import dto.labwork.LabWorkResponseDTO;
 import entity.LabWork;
 import entity.types.Difficulty;
+import exception.DifficultyException;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.transaction.Transactional;
-import jakarta.validation.ConstraintViolationException;
 import lombok.NoArgsConstructor;
 import mapper.LabWorkMapper;
 import repository.LabWorkRepository;
@@ -50,9 +50,9 @@ public class LabWorkService {
 
     @Transactional
     public void lowerDifficulty(Integer id, Integer steps) {
-        LabWork entity = repository.getByKey(id);
+        LabWork entity = repository.getByKey(id).orElseThrow(() -> new EntityNotFoundException());
         if (entity.getDifficulty().getValue() - steps <= 0) {
-            throw new ConstraintViolationException(null, null);
+            throw new DifficultyException();
         }
         Difficulty newDifficulty = Difficulty.getByValue(entity.getDifficulty().getValue() - steps);
         entity.setDifficulty(newDifficulty);

@@ -1,6 +1,7 @@
 package repository;
 
 import java.util.List;
+import java.util.Optional;
 
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityNotFoundException;
@@ -42,15 +43,13 @@ public abstract class AbstractRepository<T, K> {
         em.remove(entity);
     }
 
-    public T getByKey(K key) {
-        return em.find(entityClass, key);
+    public Optional<T> getByKey(K key) {
+        T entity = em.find(entityClass, key);
+        return Optional.ofNullable(entity);
     }
 
     public void deleteByKey(K key) {
-        T entity = this.getByKey(key);
-        if (entity == null) {
-            throw new EntityNotFoundException();
-        }
+        T entity = this.getByKey(key).orElseThrow(() -> new EntityNotFoundException());
         em.remove(entity);
     }
 }
